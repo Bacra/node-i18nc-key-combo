@@ -20,12 +20,13 @@ npm install i18nc i18nc-key-combo --save
 var i18nc = require('i18nc');
 require('i18nc-key-combo')(i18nc);
 
-i18nc('"中文"+11+I18N("词典")',
-	{
-		pluginEnabled: {keyCombo: true},
-		pluginSettings: {keyComboMode: 'I18N'}
-	});
-console.log(i18nc.code);	// I18N('中文11词典')
+var info = i18nc('"中文"+11+I18N("词典")',
+{
+	pluginEnabled: {keyCombo: true},
+	pluginSettings: {keyComboMode: 'I18N'}
+});
+
+console.log(info.code);	// I18N('中文11词典')
 ```
 
 
