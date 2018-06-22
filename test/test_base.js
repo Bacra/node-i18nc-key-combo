@@ -5,7 +5,6 @@ var debug			= require('debug')('i18nc-key-combo:test_base');
 var expect			= require('expect.js');
 var escodegen		= require('escodegen');
 var esprima			= require('esprima');
-var optionsUtils	= require('i18nc-core/lib/options');
 var keyCombo		= require('../');
 var keyComboTest	= keyCombo._test;
 
@@ -67,14 +66,15 @@ describe('#keyCombo', function()
 			debug('new code:%s', code);
 
 			var data = esprima.parse(code, {range: true, loc: true}).body[0].expression;
-			var options = optionsUtils.extend(
+			var options =
+			{
+				pluginSettings:
 				{
-					pluginSettings:
-					{
-						keyComboMode: mode,
-					},
-					I18NHandlerAlias: ['I18N_ALIAS']
-				});
+					keyComboMode: mode,
+				},
+				I18NHandlerName: 'I18N',
+				I18NHandlerAlias: ['I18N_ALIAS']
+			};
 
 
 			it('#plusBinaryExpressionAst2arrWidthClear', function()
@@ -341,7 +341,7 @@ describe('#keyCombo', function()
 
 	describe('#revert', function()
 	{
-		var options = optionsUtils.extend();
+		var options = {I18NHandlerName: 'I18N'};
 		var ast = esprima.parse(_str2code('ab+cd+12+34+abcd+1234'), {range: true, loc: true})
 			.body[0].expression;
 		var comboAsts = keyCombo.combo(ast, options).__i18n_combo_asts__;
