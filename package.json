@@ -1,0 +1,43 @@
+{
+  "name": "i18nc-key-combo",
+  "version": "1.0.0",
+  "description": "TranslateWord Combo for I18N",
+  "main": "keycombo.js",
+  "scripts": {
+    "prepublish": "npm ls",
+    "test": "cross-env DEBUG=i18nc-key-combo* mocha test/test_*",
+    "test-cov": "istanbul cover _mocha -- test/test_* --reporter dot",
+    "test-eslint": "eslint .",
+    "test-travis": "istanbul cover _mocha --report lcovonly -- test/test_* --reporter dot"
+  },
+  "dependencies": {
+    "debug": "^2.6.9",
+    "i18nc-core": "^9.1.0",
+    "lodash": "^4.17.10"
+  },
+  "devDependencies": {
+    "cross-env": "^2.0.0",
+    "escodegen": "^1.10.0",
+    "eslint": "^4.19.1",
+    "esprima": "^4.0.0",
+    "expect.js": "^0.3.1",
+    "i18nc": "^4.5.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.5.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:Bacra/node-i18nc-key-combo.git"
+  },
+  "keywords": [
+    "i18n",
+    "plugin",
+    "ast"
+  ],
+  "author": "Bacra Woo<bacra.woo@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Bacra/node-i18nc-key-combo/issues"
+  },
+  "homepage": "https://github.com/Bacra/node-i18nc-key-combo"
+}
