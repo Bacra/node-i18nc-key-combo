@@ -16,12 +16,15 @@ exports = module.exports = function(i18nc)
 	i18nc.registerPlugin('keyCombo', function(i18nc, settings, enabled)
 	{
 		debug('register keycombo for i18nc');
-		i18nc.addListener('cutword', function(emitData)
+		i18nc.addListener('beforeScan', function(emitData)
 		{
 			if (emitData.options.pluginEnabled.keyCombo)
 			{
-				debug('run by keycombo');
-				emitData.result = keyCombo(emitData.result);
+				if (emitData.result.type == 'BinaryExpression')
+				{
+					var newAst = combo(emitData.result, emitData.options);
+					if (newAst) emitData.result = newAst;
+				}
 			}
 			else
 			{
@@ -29,16 +32,50 @@ exports = module.exports = function(i18nc)
 			}
 		});
 
+		i18nc.addListener('assignLineStrings', function(emitData)
+		{
+			if (!emitData.options.pluginEnabled.keyCombo
+				|| !emitData.result || !emitData.result.length)
+			{
+				return;
+			}
+
+			var result = [];
+			emitData.result.forEach(function(item)
+			{
+				var comboAsts = item.ast.__i18n_combo_asts__;
+				if (!comboAsts)
+				{
+					result.push(item);
+				}
+				else
+				{
+					var ret = revert(item.lineStrings, comboAsts, emitData.options);
+					if (ret)
+						ArrayPush.apply(result, ret);
+					else
+						result.push(item);
+				}
+			});
+
+			debug('assignLineStrings, new:%o, old:%o', result, emitData.result);
+
+			emitData.result = result;
+		});
+
+		settings.keyComboMode = 'LITERAL';
 		enabled.keyCombo = false;
 	});
 };
 
 var exportsTest = exports._test = {};
+exports.revert = revert;
+exports.combo = combo;
 
 
 // 合并 + 号的字符
 // 注意：只有发生改变的情况下，才返回数据
-exports.combo = function combo(ast, options)
+function combo(ast, options)
 {
 	var arr = _plusBinaryExpressionAst2arrWidthClear(ast, options);
 
@@ -70,7 +107,7 @@ exports.combo = function combo(ast, options)
  * n:1
  * n:n （有一个是交叉的）
  */
-exports.revert = function revert(lineStrings, comboAsts, options)
+function revert(lineStrings, comboAsts, options)
 {
 	var result = [];
 

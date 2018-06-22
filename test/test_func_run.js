@@ -9,7 +9,7 @@ var keyCombo		= require('../');
 var keyComboTest	= keyCombo._test;
 
 
-describe('#keyCombo', function()
+describe('#func run', function()
 {
 	function _str2code(str)
 	{
