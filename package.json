@@ -5,9 +5,9 @@
   "main": "keycombo.js",
   "scripts": {
     "prepublish": "npm ls",
+    "lint": "eslint .",
     "test": "cross-env DEBUG=i18nc-key-combo* mocha test/test_*",
     "test-cov": "istanbul cover _mocha -- test/test_* --reporter dot",
-    "test-eslint": "eslint .",
     "test-travis": "istanbul cover _mocha --report lcovonly -- test/test_* --reporter dot"
   },
   "dependencies": {
@@ -19,6 +19,7 @@
     "cross-env": "^2.0.0",
     "escodegen": "^1.10.0",
     "eslint": "^4.19.1",
+    "eslint-config-brcjs": "^0.1.0",
     "esprima": "^4.0.0",
     "expect.js": "^0.3.1",
     "i18nc": "^4.5.0",
