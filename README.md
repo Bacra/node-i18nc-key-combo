@@ -1,5 +1,5 @@
 I18NC-KEY-COMBO
-==================
+================
 
 
 [![NPM Version][npm-image]][npm-url]
@@ -22,11 +22,11 @@ require('i18nc-key-combo')(i18nc);
 
 var info = i18nc('"中文"+11+I18N("词典")',
 {
-	pluginEnabled: {keyCombo: true},
-	pluginSettings: {keyComboMode: 'I18N'}
+  pluginEnabled: {keyCombo: true},
+  pluginSettings: {keyComboMode: 'I18N'}
 });
 
-console.log(info.code);	// I18N('中文11词典')
+console.log(info.code);  // I18N('中文11词典')
 ```
 
 
