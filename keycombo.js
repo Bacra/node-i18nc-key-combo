@@ -6,8 +6,9 @@
 
 var _			= require('lodash');
 var debug		= require('debug')('i18nc-key-combo');
-var astTpl		= require('i18nc-core/lib/ast_tpl');
-var astUtils	= require('i18nc-core/lib/ast_utils');
+var i18ncAst	= require('i18nc-ast');
+var astTpl		= i18ncAst.tpl;
+var astUtil		= i18ncAst.util;
 var ArrayPush	= Array.prototype.push;
 
 
@@ -82,7 +83,7 @@ function combo(ast, options)
 	// 将数组表示，转换为ast返回
 	// 同时要计算新的range
 	var asts = _arr2newAsts(arr);
-	var newAst = astUtils.asts2plusExpression(asts);
+	var newAst = astUtil.asts2plusExpression(asts);
 	newAst.__i18n_combo_key__ = true;
 	newAst.range = ast.range;
 	newAst.__i18n_flag__ = ast.__i18n_flag__;

@@ -1,9 +1,9 @@
 'use strict';
 
-var expect		= require('expect.js');
-var i18nc		= require('i18nc');
-var keyCombo	= require('../');
-keyCombo(i18nc);
+var expect	= require('expect.js');
+var i18nc	= require('i18nc-core');
+
+require('../')(i18nc);
 
 describe('#keyCombo', function()
 {
@@ -34,14 +34,3 @@ describe('#keyCombo', function()
 		expect(txt2code('"中文"+11+I18N("词典")')).to.be("I18N('中文11词典')");
 	});
 });
-
-
-
-module.exports = function code()
-
-{
-	var a = '123'+'中文'+I18N('abc');
-	var b = '123>中文'+I18N('abc');
-	var c = '<span>11</span>55'+'<span>11</span>'+222+'简体'+333+'2<span>22</span>';
-	var d = '1'+'2';
-}
